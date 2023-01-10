@@ -1,6 +1,6 @@
 # VHDL
 
-- The below two algorithms are fed with same data, where as the detections are better in the OS-CFAR algorithm
+- The below two algorithms are fed with the same data, where as the detections are better in the OS-CFAR algorithm
 
 ## CA-CFAR Algorithm
 - This project is a detection algorithmin in one of the RADAR Techniques. This performs better in homogeneous environments.
