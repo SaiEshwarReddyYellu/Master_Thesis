@@ -33,7 +33,7 @@ use work.sub_routines.all;
 ------------------------ca-cfar calculations here followed--------------------
 -- 1. noise calculation := sum of left and right ref_cells 
 --2 . threshold calculation := noise * scaling factor.
---3: sample_detection := CUT * total_ref_cells >=  threshold then target is present else noise.
+--3: sample_detection := CUT * total_ref_cells >=  threshold, then target is present else noise.
 
 ------------------------------------------------
 
