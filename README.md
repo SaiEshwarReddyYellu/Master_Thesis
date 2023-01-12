@@ -1,6 +1,6 @@
 # VHDL
 
-- The below two algorithms are fed with the same data with magnitudes in positive frequency and negative frequency, where as the detections are better in the OS-CFAR algorithm
+- The below two algorithms are fed with the same data by taking absolute magnitudes in positive frequency and negative frequency, where as the detections are better in the OS-CFAR algorithm
 
 ## CA-CFAR Algorithm
 - This project is a detection algorithmin in one of the RADAR Techniques. This performs better in homogeneous environments.
