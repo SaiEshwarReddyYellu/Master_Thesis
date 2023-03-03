@@ -4,5 +4,9 @@
 
 
 ## OS-CFAR Algorithm
+- This is a RADAR detection algorithm performs better in homogeneous environments.
+
+
+## OS-CFAR Algorithm
 - This is another RADAR detection algorithm performs better in multiple target environments.
 
