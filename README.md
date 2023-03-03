@@ -5,7 +5,7 @@
 
 ## OS-CFAR Algorithm
 - This is a RADAR detection algorithm performs better in homogeneous environments.
-![seq_det](https://github.com/SaiEshwarReddyYellu/VHDL_projects/blob/main/2D_conv_Hardware/conv_hardware.PNG)
+![seq_det](https://github.com/SaiEshwarReddyYellu/Master_Thesis/blob/main/CA_CFAR/CA-CFAR_simulation_results.PNG)
 
 ## OS-CFAR Algorithm
 - This is another RADAR detection algorithm performs better in multiple target environments.
