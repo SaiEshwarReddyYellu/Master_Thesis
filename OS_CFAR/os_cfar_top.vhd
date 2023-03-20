@@ -2,7 +2,7 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 11/23/2022 10:14:42 AM
+-- Create Date: 03/03/2023 11:46:37 AM
 -- Design Name: 
 -- Module Name: os_cfar_top - Behavioral
 -- Project Name: 
@@ -18,15 +18,20 @@
 -- 
 ----------------------------------------------------------------------------------
 
----"logn" function is limited to 10 bits(512 ref_cells as generic, if generic is greater than 512 for ref_cells, change the "logn" function with more bits length)
-
-
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.NUMERIC_STD.ALL;
+use ieee.numeric_std.all;
 use work.merge_sort_pkg.all;
 
+-- Uncomment the following library declaration if using
+-- arithmetic functions with Signed or Unsigned values
+--use IEEE.NUMERIC_STD.ALL;
+
+-- Uncomment the following library declaration if instantiating
+-- any Xilinx leaf cells in this code.
+--library UNISIM;
+--use UNISIM.VComponents.all;
 
 entity os_cfar_top is
     generic(
@@ -53,33 +58,9 @@ entity os_cfar_top is
         m_axis_tuser_i : out std_logic_vector(15 downto 0)                    --_m_axis_tuser "MSB-bit" shows "object detection or noise" and the remaining bits displays its value 
            
             );
-                       
 end os_cfar_top;
 
 architecture Behavioral of os_cfar_top is
-
---attribute x_interface_info : string;
-
-----master interface
---attribute X_INTERFACE_INFO OF axi_clk: SIGNAL IS "xilinx.com:signal:clock:1.0 axi_clk CLK";
---attribute X_INTERFACE_INFO OF axi_rstn: SIGNAL IS "xilinx.com:signal:reset:1.0 axi_rstn RST";
-
---attribute x_interface_info of m_axis_tdata : signal is "xilinx.com:interface:axis:1.0 Master_m_axis_tdata TDATA";      
---attribute x_interface_info of m_axis_tvalid : signal is "xilinx.com:interface:axis:1.0 Master_m_axis_tdata TVALID";
---attribute x_interface_info of m_axis_tready : signal is "xilinx.com:interface:axis:1.0 Master_m_axis_tdata TREADY";
---attribute x_interface_info OF m_axis_tlast : signal is "xilinx.com:interface:axis:1.0 Master_m_axis_tdata TLAST";
---attribute x_interface_info OF m_axis_tuser : signal is "xilinx.com:interface:axis:1.0 Master_m_axis_tdata TUSER";
-
-----slave interface
---attribute x_interface_info of s_axis_tdata : signal is "xilinx.com:interface:axis:1.0 Slave_s_axis_tdata TDATA";
---attribute x_interface_info of s_axis_tvalid : signal is "xilinx.com:interface:axis:1.0 Slave_s_axis_tdata TVALID";
---attribute x_interface_info of s_axis_tready : signal is "xilinx.com:interface:axis:1.0 Slave_s_axis_tdata TREADY";
---attribute x_interface_info of s_axis_tlast : signal is "xilinx.com:interface:axis:1.0 Slave_s_axis_tdata TLAST"; 
-
------AXI CLK AND RESET 
---attribute X_INTERFACE_PARAMETER : STRING;
---attribute X_INTERFACE_PARAMETER of axi_clk : signal is  " XIL_INTERFACENAME axi_clk, ASSOCIATED_RESET axi_rstn, ASSOCIATED_BUSIF m_axis:s_axis";
---attribute X_INTERFACE_PARAMETER of axi_rstn : signal is  " XIL_INTERFACENAME axi_rstn POLARITY ACTIVE_LOW";
 
 
 ------------constants declaration --------------------------
@@ -213,7 +194,9 @@ signal m_data_i : A(8*data_width_byte_i - 1 downto 0) := (others => '0');
 signal m_user_i : A (15 downto 0) := (others => '0'); 
 --------------------------signal declaration end ------------------
 
+
 begin
+
 
 ---outputs
       m_axis_tlast_i <= m_last_i;
@@ -272,6 +255,7 @@ begin
 end process array_logic;
 
 
+
 odd_even_merge_sort_algorithm : if logn(total_ref_cells) = 1 generate
 
 constant total_latency: integer := MERGE_LATENCY(total_ref_cells,1) + SORT_LATENCY(total_ref_cells,1);          ---even-odd-merge-sorting-algm latency
@@ -281,6 +265,7 @@ signal kth_sample : A ((8*data_width_byte_i - 1) downto 0) :=(others => '0') ;  
 signal kth_sample_buf : A ((8*data_width_byte_i - 1) downto 0) :=(others => '0') ;       --selected kth sample (x(k)) 
 
 begin
+
 
 sorting_algorithm_begin : process(axi_clk_i)
 ----calc_cell_avg signals 
@@ -321,6 +306,7 @@ even_odd_merge_sorting_ins : entity work.merge_sort_top
     
     port map(
         clk => axi_clk_i,
+        ready_buf => ready_buf,
         input => merge_sort_in,
         output => merge_sort_out
                 );
@@ -360,6 +346,7 @@ begin
         end if;
     end if;
 end process pipeline_for_sorting;
+
 
 order_static_selection : process(axi_clk_i)
 
@@ -436,6 +423,8 @@ begin
     
 end process kth_sample_selection;
 
+
+
 output_satge_for_merge_sort : process(axi_clk_i)
 
 begin
@@ -470,6 +459,7 @@ end process output_satge_for_merge_sort;
 
 
 end generate;
+
 
 
 even_odd_transition_sorting_algorithm : if logn(total_ref_cells) /= 1 generate 
@@ -652,6 +642,8 @@ end generate;
 
 
 
+
+
 threshold_calculation : entity work.threshold_cal
 
 generic map(
@@ -775,5 +767,8 @@ begin
 end process;
 
 end block; 
+
+
+
 
 end Behavioral;
