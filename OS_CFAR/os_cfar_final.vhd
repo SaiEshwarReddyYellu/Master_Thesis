@@ -33,7 +33,7 @@ entity os_cfar_final is
         scaling_fact : integer range 1 to 400 := 14;            --step_size is 0.25(i.e range from 0.25 to 100)
         samples_per_packet : integer range 0 to 2**14 := 3072; 
         data_width_byte : integer range 1 to 16 := 4;      --bytes
-        ref_cells : integer range 0 to 100 := 4;            --Reference cells       
+        ref_cells : integer range 0 to 100 := 8;            --Reference cells       
         guard_cells : integer range 0 to 100 := 4            --guard cells
             );
             
@@ -90,9 +90,9 @@ signal m_user_i : std_logic_vector(15 downto 0) := (others => '0');
 
 begin
 
-process(axi_clk)
-begin
-    if rising_edge(axi_clk) then
+--process(axi_clk)
+--begin
+--    if rising_edge(axi_clk) then
         s_data_i <= s_axis_tdata;
         s_valid_i <= s_axis_tvalid;
         s_axis_tready <= s_ready_i;
@@ -104,8 +104,8 @@ begin
         m_ready_i <= m_axis_tready;
         m_axis_tuser <= m_user_i;
         m_axis_tlast <= m_last_i;    
-    end if;
-end process;
+--    end if;
+--end process;
 
 
 os_cfar_ins : entity work.os_cfar_top
