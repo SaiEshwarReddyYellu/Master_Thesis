@@ -2,6 +2,25 @@
 -- Company: 
 -- Engineer: 
 -- 
+-- Create Date: 03/03/2023 11:07:52 AM
+-- Design Name: 
+-- Module Name: delay - Behavioral
+-- Project Name: 
+-- Target Devices: 
+-- Tool Versions: 
+-- Description: 
+-- 
+-- Dependencies: 
+-- 
+-- Revision:
+-- Revision 0.01 - File Created
+-- Additional Comments:
+-- 
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+-- Company: 
+-- Engineer: 
+-- 
 -- Create Date: 11/08/2022 10:32:39 AM
 -- Design Name: 
 -- Module Name: delay - Behavioral
@@ -28,6 +47,7 @@ generic(size : integer := 1; data_width_d : integer);
 
 port(
     clk : in std_logic;
+    ready_buf : in std_logic;
     input_d : in A_vector;
     output_d : out A_vector 
 );
@@ -62,23 +82,25 @@ begin
        begin
 
          if rising_edge(CLK) then
-
-           for K in D'range loop
-
-             if K=D'low then
-
-               D(K)<=input_d;
-
-             else
-
-               D(K)<=D(K-1);
-
-             end if;
-
-           end loop;
-
-         end if;
-
+            if ready_buf = '1' then
+    
+               for K in D'range loop
+    
+                 if K=D'low then
+    
+                   D(K)<=input_d;
+    
+                 else
+    
+                   D(K)<=D(K-1);
+    
+                 end if;
+    
+               end loop;
+    
+            end if;
+          end if;
+          
        end process;
 
        output_d <= D(D'high);

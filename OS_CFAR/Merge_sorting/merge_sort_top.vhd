@@ -2,7 +2,7 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 11/08/2022 10:39:59 AM
+-- Create Date: 03/03/2023 11:01:04 AM
 -- Design Name: 
 -- Module Name: merge_sort_top - Behavioral
 -- Project Name: 
@@ -26,14 +26,15 @@ use work.merge_sort_pkg.all;
 entity merge_sort_top is
 generic(
     ce_latency : integer := 1;
-    size : integer;
-    data_width : integer
+    size : integer := 8;
+    data_width : integer := 32
         );
 
 port(
     clk : in std_logic;
-    Input : in A_vector(1 to size);
-    output : out A_vector(1 to size)
+    ready_buf : in std_logic;
+    Input : in A_vector(1 to size)(data_width-1 downto 0);
+    output : out A_vector(1 to size)(data_width-1 downto 0)
         );
         
 end merge_sort_top;
@@ -48,7 +49,9 @@ begin
     
     begin
         if rising_edge(clk) then
-            input_array_buf <= Input;           
+            if ready_buf = '1' then
+                input_array_buf <= Input;   
+            end if;        
         end if;
     end process;
  
@@ -63,9 +66,11 @@ begin
           
           port map(
                 clk => clk,
+                ready_buf => ready_buf,
                 input_m => input_array_buf,
                 output_m => output
                         );
 
 
 end Behavioral;
+

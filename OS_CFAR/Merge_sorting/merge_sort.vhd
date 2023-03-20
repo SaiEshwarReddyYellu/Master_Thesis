@@ -2,7 +2,7 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 11/08/2022 10:38:17 AM
+-- Create Date: 03/03/2023 11:24:31 AM
 -- Design Name: 
 -- Module Name: merge_sort - Behavioral
 -- Project Name: 
@@ -31,6 +31,7 @@ generic(
         );
 port(
     clk : in std_logic;
+    ready_buf : in std_logic;
     input_m : in A_vector(1 to size)(data_width_m-1 downto 0);
     output_m : out A_vector(1 to size)(data_width_m-1 downto 0)
         );
@@ -42,7 +43,7 @@ architecture Behavioral of merge_sort is
 constant N : natural := input_m'length;
 
 begin
-    
+
     i1 : if N = 1 generate 
             
             output_m <= input_m;
@@ -55,6 +56,7 @@ begin
                             )
                 port map(
                         clk => clk,
+                        ready_buf => ready_buf,
                         in_1 => input_m(input_m'low),
                         in_2 => input_m(input_m'high),
                         out_1 => output_m(output_m'low),
@@ -62,7 +64,7 @@ begin
                             );                   
             
           end generate;
-          
+
           
      i3 : if N > 2 generate 
             
@@ -80,6 +82,7 @@ begin
                                         )
                         port map(
                             clk => clk,
+                            ready_buf => ready_buf,
                             input_m => input_m(input_m'low to input_m'low + (N+1)/2 - 1),
                             output_m => sl
                                     );
@@ -92,12 +95,14 @@ begin
                                         )
                         port map(
                             clk => clk,
+                            ready_buf => ready_buf,
                             input_m => input_m( input_m'low + (N+1)/2 to input_m'high),
                             output_m => sh
                                     );
 
                            
                 s <= sl & sh;
+
             
                me : entity work.merge
                     generic map(
@@ -108,10 +113,12 @@ begin
                     
                     port map(
                             clk => clk,
+                            ready_buf => ready_buf,
                             input_me => s,
                             output_me => output_m
                                 );
                 
           end generate;
-          
+
+
 end Behavioral;
