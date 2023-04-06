@@ -4,7 +4,7 @@
 
 
 ## CA-CFAR Algorithm
-- This is a RADAR detection algorithm that performs averaging of the neighborhood cells to calculate noise levels. Sometimes one target in the close range might artificially increase the noise levels of the other target and identifies that as a noise. In the below figure, although there are two targets in the test data, only one is identified as target.
+- This is a RADAR detection algorithm that performs averaging of the neighborhood cells to calculate noise levels. Sometimes one target in the close range might artificially increase the noise levels of the other target and identifies that as a noise. In the below figure, although there are two targets in the left plane of the test data, only one is identified as target.
 
 ![seq_det](https://github.com/SaiEshwarReddyYellu/Master_Thesis/blob/main/CA_CFAR/CA-CFAR_simulation_results.PNG)
 
