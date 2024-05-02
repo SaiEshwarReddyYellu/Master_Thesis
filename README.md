@@ -1,6 +1,6 @@
 # VHDL
 
-- The below two algorithms are fed with the test data having two targets by taking absolute magnitudes in positive frequency (two targets) and negative frequency (two targets), where as the detections are better in the OS-CFAR algorithm
+- The below two algorithms are fed with the test data having two targets by taking absolute magnitudes in positive frequency (two targets) and negative frequency (two targets), to analyse their importance in homogeneous and heterogeneous environments. 
 
 
 ## CA-CFAR Algorithm
