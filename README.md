@@ -10,6 +10,6 @@
 
 
 ## OS-CFAR Algorithm
-- This is another RADAR detection algorithm which performs sorting instead of averaging. So, the target present in the close range won't affect the other targets. In the below simulation it showed both the targets correctly. This has increased the efficiency and performance of identifying targets in the multi-target environment. 
+- This is another radar detection algorithm that uses sorting technique instead of averaging. As a result, nearby targets threshold do not interfere with the detection of other targets. The simulation below demonstrates that both targets are correctly identified, enhancing the efficiency and performance of target detection in a multi-target environment. 
 
 ![seq_det](https://github.com/SaiEshwarReddyYellu/Master_Thesis/blob/main/OS_CFAR/os_cfar_simulation.PNG)
